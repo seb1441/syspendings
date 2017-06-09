@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170609220015) do
+ActiveRecord::Schema.define(version: 20170609221056) do
 
   create_table "records", force: :cascade do |t|
     t.date "date"
     t.string "who"
     t.string "description"
-    t.boolean "split"
+    t.boolean "split", default: true
     t.decimal "price", precision: 8, scale: 2
     t.text "comment"
     t.datetime "created_at", null: false
