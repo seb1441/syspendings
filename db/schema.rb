@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170609221056) do
+ActiveRecord::Schema.define(version: 20170609222543) do
 
   create_table "records", force: :cascade do |t|
     t.date "date"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20170609221056) do
     t.string "description"
     t.boolean "split", default: true
     t.decimal "price", precision: 8, scale: 2
-    t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
