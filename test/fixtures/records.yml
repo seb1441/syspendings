@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2017-06-09
+  who: MyString
+  description: MyString
+  split: false
+  price: 9.99
+  comment: MyText
+
+two:
+  date: 2017-06-09
+  who: MyString
+  description: MyString
+  split: false
+  price: 9.99
+  comment: MyText
