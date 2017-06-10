@@ -17,7 +17,7 @@
   <div class="form-group row">
     <%= form.label :date, for: :record_date, class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= form.text_field :date, id: :record_date, class: "form-control", type: "date", value: Date.parse(Time.now.to_s) %>
+      <%= form.text_field :date, id: :record_date, class: "form-control", type: "date", value: form.object.date %>
     </div>
   </div>
 
