@@ -5,6 +5,18 @@ class RecordsController < ApplicationController
   # GET /records.json
   def index
     @records = Record.all
+    @yuki_sum_split =      Record.where(:who => 'Yuki' )
+                                 .where(:split => 'Yes')
+                                 .sum(:price)
+    @yuki_sum_non_split =  Record.where(:who => 'Yuki' )
+                                 .where(:split => 'No')
+                                 .sum(:price)
+    @seb_sum_split =       Record.where(:who => 'Seb' )
+                                 .where(:split => 'Yes')
+                                 .sum(:price)
+    @seb_sum_non_split =   Record.where(:who => 'Seb' )
+                                 .where(:split => 'No')
+                                 .sum(:price)
   end
 
   # GET /records/1
@@ -28,7 +40,7 @@ class RecordsController < ApplicationController
 
     respond_to do |format|
       if @record.save
-        format.html { redirect_to @record, notice: 'Record was successfully created.' }
+        format.html { redirect_to action: "index", notice: 'Record was successfully created.' }
         format.json { render :show, status: :created, location: @record }
       else
         format.html { render :new }

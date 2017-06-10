@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Records</h1>
+<br>
 
 <table class="table">
   <thead>
@@ -20,7 +21,7 @@
         <td><%= record.date %></td>
         <td><%= record.who %></td>
         <td><%= record.description %></td>
-        <td><%= record.split ? "Yes" : "No"  %></td>
+        <td><%= record.split %></td>
         <td><%= '%.2f' % record.price %>$</td>
         <td><%= link_to 'Edit', edit_record_path(record) %></td>
         <td><%= link_to 'Delete', record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -31,4 +32,18 @@
 
 <br>
 
-<%= link_to 'New Record', new_record_path %>
+<%= link_to 'New Record', new_record_path, class:" btn btn-primary button-style button-size" %>
+
+<br> <br>
+
+<div class="card text-center">
+  <div class="card-header">
+    Calculations
+  </div>
+  <div class="card-block">
+    <p class="card-text">Yuki spent a total of <%= @yuki_sum_split %>$ which was split and <%= @yuki_sum_non_split %>$ which was non split. <br>
+      Seb spent a total of <%= @seb_sum_split / 2 %>$ which was split and <%= @seb_sum_non_split %> which was non split. <br>
+      Yuki needs to pay Seb : <%= (@seb_sum_split / 2) + @seb_sum_non_split %>$ <br>
+      Sebs needs to pay Yuki : <%= (@yuki_sum_split / 2) + @yuki_sum_non_split %>$</p>
+  </div>
+</div>

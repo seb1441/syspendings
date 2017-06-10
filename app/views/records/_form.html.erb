@@ -1,43 +1,55 @@
 <%= form_with(model: record, local: true) do |form| %>
-  <% if record.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(record.errors.count, "error") %> prohibited this record from being saved:</h2>
+  <div class="form-group row">
+    <% if record.errors.any? %>
+      <div id="error_explanation" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading"><%= pluralize(record.errors.count, "error") %> prohibited this record from being saved!</h4>
 
-      <ul>
-      <% record.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% record.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <br>
+
+  <div class="form-group row">
+    <%= form.label :date, for: :record_date, class: "col-2 col-form-label" %>
+    <div class="col-10">
+      <%= form.text_field :date, id: :record_date, class: "form-control", type: "date", value: Date.parse(Time.now.to_s) %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_select :date, id: :record_date %>
   </div>
 
-  <div class="field">
-    <%= form.label :who %>
-    <%#= form.text_field :who, id: :record_who %>
-    <%= form.select :who, ['Seb', 'Yuki']%>
+  <div class="form-group row">
+    <%= form.label :who, for: :record_who, class: "col-2 col-form-label" %>
+    <div class="col-10">
+      <%= form.select :who, options_for_select(["Seb","Yuki"],:selected => form.object.who), {}, id: :record_who, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description, id: :record_description %>
+  <div class="form-group row">
+    <%= form.label :description , for: :record_description, class: "col-2 col-form-label" %>
+    <div class="col-10">
+      <%= form.text_field :description, id: :record_description, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
+  <div class="form-group row">
+    <%= form.label :price, for: :record_price, class: "col-2 col-form-label" %>
+    <div class="col-10">
+      <%= form.text_field :price, id: :record_price, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price, id: :record_price %>
-    <%= form.label :split %>
-    <%= form.check_box :split, id: :record_split %>
+  <div class="form-group row">
+    <%= form.label :split, for: :record_split, class: "col-2 col-form-label" %>
+    <div class="col-10">
+      <%= form.select :split, options_for_select(["Yes","No"],:selected => form.object.split), {}, id: :record_split, class: "form-control" %>
+    </div>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit(class: "btn btn-primary button-style button-size") %>
   </div>
 <% end %>
