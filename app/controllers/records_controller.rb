@@ -4,7 +4,7 @@ class RecordsController < ApplicationController
   # GET /records
   # GET /records.json
   def index
-    @records = Record.all
+    @records = Record.order('date ASC')
     @yuki_sum_split =      Record.where(:who => 'Yuki' )
                                  .where(:split => 'Yes')
                                  .sum(:price)
