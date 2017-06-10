@@ -3,6 +3,14 @@
 <h1>Records</h1>
 <br>
 
+<%= form_tag("/records", method: "get", class: "form-inline my-2 my-lg-0") do %>
+  <%= text_field_tag(:q, "", class: "form-control mr-sm-2") %>
+  <%= submit_tag("Search", class: "btn btn-outline-primary my-2 my-sm-0") %>
+<% end %>
+<a href="/records?utf8=✓&q=ShowAll&commit=Search">Show All</a><br>
+<a href="/records?utf8=✓&q=ShowShared&commit=Search">Show Shared</a><br>
+<a href="/records?utf8=✓&q=ShowSebAlone&commit=Search">Show Seb Alone</a><br>
+<a href="/records?utf8=✓&q=ShowYukiAlone&commit=Search">Show Yuki Alone</a><br>
 <table class="table">
   <thead>
     <tr>
@@ -41,9 +49,25 @@
     Calculations
   </div>
   <div class="card-block">
-    <p class="card-text">Yuki spent a total of <%= @yuki_sum_split %>$ which was split and <%= @yuki_sum_non_split %>$ which was non split. <br>
-      Seb spent a total of <%= @seb_sum_split / 2 %>$ which was split and <%= @seb_sum_non_split %>$ which was non split. <br>
-      Yuki needs to pay Seb : <%= (@seb_sum_split / 2) + @seb_sum_non_split %>$ <br>
-      Sebs needs to pay Yuki : <%= (@yuki_sum_split / 2) + @yuki_sum_non_split %>$</p>
+    <h4 class="card-title">Seb</h4>
+    <p class="card-text">
+      Alone: <%= @seb_sum %>$<br>
+      Split: <%= @seb_sum_split %>$<br>
+      Non Split: <%= @seb_sum_non_split %>$<br>
+      Total Spent: <%= @seb_sum + (@seb_sum_split / 2) + @yuki_sum_non_split%>
+    </p>
+    <hr>
+    <h4 class="card-title">Yuki</h4>
+    <p class="card-text">
+      Alone: <%= @yuki_sum %>$<br>
+      Split: <%= @yuki_sum_split %>$<br>
+      Non Split: <%= @yuki_sum_non_split %>$
+      Total Spent: <%= @yuki_sum + (@yuki_sum_split / 2) + @seb_sum_non_split%>
+    </p>
+    <hr>
+    <p class="card-text">
+      <strong>Yuki needs to pay Seb : <%= (@seb_sum_split / 2) + @seb_sum_non_split %>$ <br>
+      Sebs needs to pay Yuki : <%= (@yuki_sum_split / 2) + @yuki_sum_non_split %>$</strong>
+    </p>
   </div>
 </div>

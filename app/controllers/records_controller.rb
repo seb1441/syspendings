@@ -4,19 +4,54 @@ class RecordsController < ApplicationController
   # GET /records
   # GET /records.json
   def index
-    @records = Record.order('date ASC')
     @yuki_sum_split =      Record.where(:who => 'Yuki' )
-                                 .where(:split => 'Yes')
+                                 .where(:split => 'Split')
                                  .sum(:price)
     @yuki_sum_non_split =  Record.where(:who => 'Yuki' )
-                                 .where(:split => 'No')
+                                 .where(:split => 'Non-Split')
                                  .sum(:price)
     @seb_sum_split =       Record.where(:who => 'Seb' )
-                                 .where(:split => 'Yes')
+                                 .where(:split => 'Split')
                                  .sum(:price)
     @seb_sum_non_split =   Record.where(:who => 'Seb' )
-                                 .where(:split => 'No')
+                                 .where(:split => 'Non-Split')
                                  .sum(:price)
+    @seb_sum =   Record.where(:who => 'Seb' )
+                                 .where(:split => 'Alone')
+                                 .sum(:price)
+    @yuki_sum =   Record.where(:who => 'Yuki' )
+                                 .where(:split => 'Alone')
+                                 .sum(:price)
+    if params[:q]
+      search_term = params[:q]
+      if Rails.env == "production"
+        if search_term == "ShowAll"
+          @records = Record.order('date ASC')
+        elsif search_term == "ShowShared"
+          @records = Record.where.not("split ilike ?", "%Alone%").order('date ASC')
+        elsif search_term == "ShowSebAlone"
+          @records = Record.where("who ilike ?", "%Seb%").where("split ilike ?", "%Alone%").order('date ASC')
+        elsif search_term == "ShowYukiAlone"
+          @records = Record.where("who ilike ?", "%Yuki%").where("split ilike ?", "%Alone%").order('date ASC')
+        else
+          @records = Record.where("description ilike ?", "%#{search_term}%")
+        end
+      else
+        if search_term == "ShowAll"
+          @records = Record.order('date ASC')
+        elsif search_term == "ShowShared"
+          @records = Record.where.not("split LIKE ?", "%Alone%").order('date ASC')
+        elsif search_term == "ShowSebAlone"
+          @records = Record.where("who LIKE ?", "%Seb%").where("split LIKE ?", "%Alone%").order('date ASC')
+        elsif search_term == "ShowYukiAlone"
+          @records = Record.where("who LIKE ?", "%Yuki%").where("split LIKE ?", "%Alone%").order('date ASC')
+        else
+          @records = Record.where("description LIKE ?", "%#{search_term}%")
+        end
+      end
+    else
+      @records = Record.order('date ASC')
+    end
   end
 
   # GET /records/1
