@@ -43,9 +43,9 @@
   </div>
 
   <div class="form-group row">
-    <%= form.label :split, for: :record_split, class: "col-2 col-form-label" %>
+    <%= form.label 'How', for: :record_split, class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= form.select :split, options_for_select(["Yes","No"],:selected => form.object.split), {}, id: :record_split, class: "form-control" %>
+      <%= form.select :split, options_for_select(["Split","Non-Split", "Alone"],:selected => form.object.split), {}, id: :record_split, class: "form-control" %>
     </div>
   </div>
 
