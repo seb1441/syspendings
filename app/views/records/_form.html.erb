@@ -20,7 +20,7 @@
       <% if form.object.date %>
         <%= form.text_field :date, id: :record_date, class: "form-control", type: "date", value: form.object.date %>
       <% else %>
-        <%= form.text_field :date, id: :record_date, class: "form-control", type: "date", value: Date.parse(Time.now.to_s) %>
+        <%= form.text_field :date, id: :record_date, class: "form-control", type: "date", value: Date.parse(Time.now.in_time_zone('Pacific Time (US & Canada)').to_s) %>
       <% end %>
     </div>
   </div>
