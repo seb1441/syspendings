@@ -24,10 +24,9 @@ class RecordsController < ApplicationController
                                  .sum(:price)
     if params[:q]
       search_term = params[:q]
+      @button = search_term
       if Rails.env == "production"
-        if search_term == "ShowAll"
-          @records = Record.order('date ASC')
-        elsif search_term == "ShowShared"
+        if search_term == "ShowShared"
           @records = Record.where.not("split ilike ?", "%Alone%").order('date ASC')
         elsif search_term == "ShowSebAlone"
           @records = Record.where("who ilike ?", "%Seb%").where("split ilike ?", "%Alone%").order('date ASC')
@@ -37,9 +36,7 @@ class RecordsController < ApplicationController
           @records = Record.where("description ilike ?", "%#{search_term}%")
         end
       else
-        if search_term == "ShowAll"
-          @records = Record.order('date ASC')
-        elsif search_term == "ShowShared"
+        if search_term == "ShowShared"
           @records = Record.where.not("split LIKE ?", "%Alone%").order('date ASC')
         elsif search_term == "ShowSebAlone"
           @records = Record.where("who LIKE ?", "%Seb%").where("split LIKE ?", "%Alone%").order('date ASC')
