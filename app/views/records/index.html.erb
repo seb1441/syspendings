@@ -86,8 +86,17 @@
     </p>
     <hr>
     <p class="card-text">
-      <strong>Yuki needs to pay Seb : <%= (@seb_sum_split / 2) + @seb_sum_non_split %>$ <br>
-      Sebs needs to pay Yuki : <%= (@yuki_sum_split / 2) + @yuki_sum_non_split %>$</strong>
+      <% sebOwe = (@yuki_sum_split / 2) + @yuki_sum_non_split %>
+      <% yukiOwe = (@seb_sum_split / 2) + @seb_sum_non_split %>
+      <strong>
+        Seb owes Yuki : <%= '%.2f' % sebOwe %>$<br>
+        Yuki owes Seb : <%= '%.2f' % yukiOwe %>$ <br><br>
+        <% if sebOwe > yukiOwe %>
+          At the end of this month, Seb needs to pay Yuki: <%= '%.2f' % (sebOwe - yukiOwe) %>$.
+        <% else %>
+          At the end of this month, Yuki needs to pay Seb: <%= '%.2f' % (yukiOwe - sebOwe) %>$.
+        <% end %>
+      </strong>
     </p>
   </div>
 </div>
