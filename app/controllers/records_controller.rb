@@ -5,27 +5,29 @@ class RecordsController < ApplicationController
   # GET /records.json
   def index
     current_month = Time.now.strftime("%m")
-    @yuki_sum_split =      Record.where(:who => 'Yuki' )
-                                 .where("cast(strftime('%m', date) as int) = ?", current_month)
+    test3 =
+    if Rails.env == "production"
+      # test3= Record.where("extract(year from release_date) = ?", 2013)
+      test3 = Movie.where("extract(month from date) = ?", 07)
+    else
+      test3 = Record.where("cast(strftime('%m', date) as int) = ?", current_month)
+    end
+    @yuki_sum_split =      test3.where(:who => 'Yuki' )
                                  .where(:split => 'Split')
                                  .sum(:price)
-    @yuki_sum_non_split =  Record.where(:who => 'Yuki' )
-                                 .where("cast(strftime('%m', date) as int) = ?", current_month)
+    @yuki_sum_non_split =  test3.where(:who => 'Yuki' )
                                  .where(:split => 'Non-Split')
                                  .sum(:price)
-    @seb_sum_split =       Record.where(:who => 'Seb' )
+    @seb_sum_split =       test3.where(:who => 'Seb' )
                                  .where(:split => 'Split')
-                                 .where("cast(strftime('%m', date) as int) = ?", current_month)
                                  .sum(:price)
-    @seb_sum_non_split =   Record.where(:who => 'Seb' )
+    @seb_sum_non_split =   test3.where(:who => 'Seb' )
                                  .where(:split => 'Non-Split')
-                                 .where("cast(strftime('%m', date) as int) = ?", current_month)
                                  .sum(:price)
-    @seb_sum =   Record.where(:who => 'Seb' )
+    @seb_sum =   test3.where(:who => 'Seb' )
                                  .where(:split => 'Alone')
-                                 .where("cast(strftime('%m', date) as int) = ?", current_month)
                                  .sum(:price)
-    @yuki_sum =   Record.where(:who => 'Yuki' )
+    @yuki_sum =   test3.where(:who => 'Yuki' )
                                  .where(:split => 'Alone')
                                  .where("cast(strftime('%m', date) as int) = ?", current_month)
                                  .sum(:price)
@@ -34,27 +36,27 @@ class RecordsController < ApplicationController
       @button = search_term
       if Rails.env == "production"
         if search_term == "ShowShared"
-          @records = Record.where.not("split ilike ?", "%Alone%").order('date ASC')
+          @records = test3.where.not("split ilike ?", "%Alone%").order('date ASC')
         elsif search_term == "ShowSebAlone"
-          @records = Record.where("who ilike ?", "%Seb%").where("split ilike ?", "%Alone%").order('date ASC')
+          @records = test3.where("who ilike ?", "%Seb%").where("split ilike ?", "%Alone%").order('date ASC')
         elsif search_term == "ShowYukiAlone"
-          @records = Record.where("who ilike ?", "%Yuki%").where("split ilike ?", "%Alone%").order('date ASC')
+          @records = test3.where("who ilike ?", "%Yuki%").where("split ilike ?", "%Alone%").order('date ASC')
         else
-          @records = Record.where("description ilike ?", "%#{search_term}%")
+          @records = test3.where("description ilike ?", "%#{search_term}%")
         end
       else
         if search_term == "ShowShared"
-          @records = Record.where.not("split LIKE ?", "%Alone%").order('date ASC')
+          @records = test3.where.not("split LIKE ?", "%Alone%").order('date ASC')
         elsif search_term == "ShowSebAlone"
-          @records = Record.where("who LIKE ?", "%Seb%").where("split LIKE ?", "%Alone%").order('date ASC')
+          @records = test3.where("who LIKE ?", "%Seb%").where("split LIKE ?", "%Alone%").order('date ASC')
         elsif search_term == "ShowYukiAlone"
-          @records = Record.where("who LIKE ?", "%Yuki%").where("split LIKE ?", "%Alone%").order('date ASC')
+          @records = test3.where("who LIKE ?", "%Yuki%").where("split LIKE ?", "%Alone%").order('date ASC')
         else
-          @records = Record.where("description LIKE ?", "%#{search_term}%")
+          @records = test3.where("description LIKE ?", "%#{search_term}%")
         end
       end
     else
-      @records = Record.where("cast(strftime('%m', date) as int) = ?", current_month).order('date ASC')
+      @records = test3.order('date ASC')
 
     end
   end
