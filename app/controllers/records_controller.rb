@@ -5,32 +5,19 @@ class RecordsController < ApplicationController
   # GET /records.json
   def index
     current_month = Time.now.strftime("%m")
-    test3 =
+    test3 = Record
     if Rails.env == "production"
       # test3= Record.where("extract(year from release_date) = ?", 2013)
-      test3 = Movie.where("extract(month from date) = ?", 07)
+      test3 = Record.where("extract(month from date) = ?", 07)
     else
       test3 = Record.where("cast(strftime('%m', date) as int) = ?", current_month)
     end
-    @yuki_sum_split =      test3.where(:who => 'Yuki' )
-                                 .where(:split => 'Split')
-                                 .sum(:price)
-    @yuki_sum_non_split =  test3.where(:who => 'Yuki' )
-                                 .where(:split => 'Non-Split')
-                                 .sum(:price)
-    @seb_sum_split =       test3.where(:who => 'Seb' )
-                                 .where(:split => 'Split')
-                                 .sum(:price)
-    @seb_sum_non_split =   test3.where(:who => 'Seb' )
-                                 .where(:split => 'Non-Split')
-                                 .sum(:price)
-    @seb_sum =   test3.where(:who => 'Seb' )
-                                 .where(:split => 'Alone')
-                                 .sum(:price)
-    @yuki_sum =   test3.where(:who => 'Yuki' )
-                                 .where(:split => 'Alone')
-                                 .where("cast(strftime('%m', date) as int) = ?", current_month)
-                                 .sum(:price)
+    @yuki_sum_split =      Record.calculate(test3, 'Yuki', 'Split')
+    @yuki_sum_non_split =  Record.calculate(test3, 'Yuki', 'Non-Split')
+    @seb_sum_split =       Record.calculate(test3, 'Seb', 'Split')
+    @seb_sum_non_split =   Record.calculate(test3, 'Seb', 'Non-Split')
+    @seb_sum =             Record.calculate(test3, 'Seb', 'Alone')
+    @yuki_sum =            Record.calculate(test3, 'Yuki', 'Alone')
     if params[:q]
       search_term = params[:q]
       @button = search_term
