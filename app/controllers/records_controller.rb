@@ -4,23 +4,30 @@ class RecordsController < ApplicationController
   # GET /records
   # GET /records.json
   def index
+    current_month = Time.now.strftime("%m")
     @yuki_sum_split =      Record.where(:who => 'Yuki' )
+                                 .where("cast(strftime('%m', date) as int) = ?", current_month)
                                  .where(:split => 'Split')
                                  .sum(:price)
     @yuki_sum_non_split =  Record.where(:who => 'Yuki' )
+                                 .where("cast(strftime('%m', date) as int) = ?", current_month)
                                  .where(:split => 'Non-Split')
                                  .sum(:price)
     @seb_sum_split =       Record.where(:who => 'Seb' )
                                  .where(:split => 'Split')
+                                 .where("cast(strftime('%m', date) as int) = ?", current_month)
                                  .sum(:price)
     @seb_sum_non_split =   Record.where(:who => 'Seb' )
                                  .where(:split => 'Non-Split')
+                                 .where("cast(strftime('%m', date) as int) = ?", current_month)
                                  .sum(:price)
     @seb_sum =   Record.where(:who => 'Seb' )
                                  .where(:split => 'Alone')
+                                 .where("cast(strftime('%m', date) as int) = ?", current_month)
                                  .sum(:price)
     @yuki_sum =   Record.where(:who => 'Yuki' )
                                  .where(:split => 'Alone')
+                                 .where("cast(strftime('%m', date) as int) = ?", current_month)
                                  .sum(:price)
     if params[:q]
       search_term = params[:q]
@@ -47,7 +54,8 @@ class RecordsController < ApplicationController
         end
       end
     else
-      @records = Record.order('date ASC')
+      @records = Record.where("cast(strftime('%m', date) as int) = ?", current_month).order('date ASC')
+
     end
   end
 
