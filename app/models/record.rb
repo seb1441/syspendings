@@ -9,11 +9,11 @@ class Record < ApplicationRecord
   #   self.created_on(Date.today)
   # end
 
-  def self.calculate (array, who, where)
-    if array.where(id: -1).empty?
+  def self.calculate (who, where)
+    if test3.empty?
       return 0
     else
-      return array.where(:who => who ).where(:split => where).sum(:price)
+      return test3.where(:who => who ).where(:split => where).sum(:price)
     end
   end
 end

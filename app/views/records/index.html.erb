@@ -9,6 +9,10 @@
 <% end %>
 <br>
 <div class="btn-group" role="group" aria-label="Basic example">
+  <%= link_to 'June', "/records", class: "btn btn-secondary" %>
+  <%= link_to 'July', "/records", class: "btn btn-primary" %>
+</div><br><br>
+<div class="btn-group" role="group" aria-label="Basic example">
   <% if @button == "ShowShared" %>
     <%= link_to 'All', "/records", class: "btn btn-secondary" %>
     <%= link_to 'Shared', "/records?utf8=✓&q=ShowShared&commit=Search", class: "btn btn-primary" %>
