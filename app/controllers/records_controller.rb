@@ -4,10 +4,16 @@ class RecordsController < ApplicationController
   # GET /records
   # GET /records.json
   def index
-    current_month = Time.now.strftime("%m")
     test3 = Record
+    current_month = Time.now.strftime("%m")
+    if params[:q]
+      search_term = params[:q]
+      if search_term == "June"
+        @month = "June"
+        current_month = 06
+      end
+    end
     if Rails.env == "production"
-      # test3= Record.where("extract(year from release_date) = ?", 2013)
       test3 = test3.where("extract(month from date) = ?", current_month)
     else
       test3 = test3.where("cast(strftime('%m', date) as int) = ?", current_month)
@@ -23,29 +29,31 @@ class RecordsController < ApplicationController
       @button = search_term
       if Rails.env == "production"
         if search_term == "ShowShared"
-          @records = test3.where.not("split ilike ?", "%Alone%").order('date ASC')
+          test3 = test3.where.not("split ilike ?", "%Alone%").order('date ASC')
         elsif search_term == "ShowSebAlone"
-          @records = test3.where("who ilike ?", "%Seb%").where("split ilike ?", "%Alone%").order('date ASC')
+          test3 = test3.where("who ilike ?", "%Seb%").where("split ilike ?", "%Alone%").order('date ASC')
         elsif search_term == "ShowYukiAlone"
-          @records = test3.where("who ilike ?", "%Yuki%").where("split ilike ?", "%Alone%").order('date ASC')
+          test3 = test3.where("who ilike ?", "%Yuki%").where("split ilike ?", "%Alone%").order('date ASC')
         else
-          @records = test3.where("description ilike ?", "%#{search_term}%")
+          if current_month == Time.now.strftime("%m")
+            test3 = test3.where("description ilike ?", "%#{search_term}%")
+          end
         end
       else
         if search_term == "ShowShared"
-          @records = test3.where.not("split LIKE ?", "%Alone%").order('date ASC')
+          test3 = test3.where.not("split LIKE ?", "%Alone%").order('date ASC')
         elsif search_term == "ShowSebAlone"
-          @records = test3.where("who LIKE ?", "%Seb%").where("split LIKE ?", "%Alone%").order('date ASC')
+          test3 = test3.where("who LIKE ?", "%Seb%").where("split LIKE ?", "%Alone%").order('date ASC')
         elsif search_term == "ShowYukiAlone"
-          @records = test3.where("who LIKE ?", "%Yuki%").where("split LIKE ?", "%Alone%").order('date ASC')
+          test3 = test3.where("who LIKE ?", "%Yuki%").where("split LIKE ?", "%Alone%").order('date ASC')
         else
-          @records = test3.where("description LIKE ?", "%#{search_term}%")
+          if current_month == Time.now.strftime("%m")
+            test3 = test3.where("description LIKE ?", "%#{search_term}%")
+          end
         end
       end
-    else
-      @records = test3.order('date ASC')
-
     end
+    @records = test3.order('date ASC')
   end
 
   # GET /records/1
