@@ -29,11 +29,11 @@ class RecordsController < ApplicationController
       @button = search_term
       if Rails.env == "production"
         if search_term == "ShowShared"
-          test3 = test3.where.not("split ilike ?", "%Alone%").order('date ASC')
+          test3 = test3.where.not("split ilike ?", "%Alone%")
         elsif search_term == "ShowSebAlone"
-          test3 = test3.where("who ilike ?", "%Seb%").where("split ilike ?", "%Alone%").order('date ASC')
+          test3 = test3.where("who ilike ?", "%Seb%").where("split ilike ?", "%Alone%")
         elsif search_term == "ShowYukiAlone"
-          test3 = test3.where("who ilike ?", "%Yuki%").where("split ilike ?", "%Alone%").order('date ASC')
+          test3 = test3.where("who ilike ?", "%Yuki%").where("split ilike ?", "%Alone%")
         else
           if current_month == Time.now.strftime("%m")
             test3 = test3.where("description ilike ?", "%#{search_term}%")
@@ -41,11 +41,11 @@ class RecordsController < ApplicationController
         end
       else
         if search_term == "ShowShared"
-          test3 = test3.where.not("split LIKE ?", "%Alone%").order('date ASC')
+          test3 = test3.where.not("split LIKE ?", "%Alone%")
         elsif search_term == "ShowSebAlone"
-          test3 = test3.where("who LIKE ?", "%Seb%").where("split LIKE ?", "%Alone%").order('date ASC')
+          test3 = test3.where("who LIKE ?", "%Seb%").where("split LIKE ?", "%Alone%")
         elsif search_term == "ShowYukiAlone"
-          test3 = test3.where("who LIKE ?", "%Yuki%").where("split LIKE ?", "%Alone%").order('date ASC')
+          test3 = test3.where("who LIKE ?", "%Yuki%").where("split LIKE ?", "%Alone%")
         else
           if current_month == Time.now.strftime("%m")
             test3 = test3.where("description LIKE ?", "%#{search_term}%")
@@ -53,7 +53,7 @@ class RecordsController < ApplicationController
         end
       end
     end
-    @records = test3.order('date ASC')
+    @records = test3.order('date DESC')
   end
 
   # GET /records/1

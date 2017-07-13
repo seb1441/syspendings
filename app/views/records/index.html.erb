@@ -10,36 +10,42 @@
 <br>
 <div class="btn-group" role="group" aria-label="Basic example">
   <% if @month == "June" %>
-    <%= link_to 'June', "/records?utf8=✓&q=June&commit=Search", class: "btn btn-primary" %>
+    <%= link_to 'June', "/records?utf8=✓&q=June&commit=Search", class: "btn btn-info" %>
     <%= link_to 'July', "/records", class: "btn btn-secondary" %>
   <% else %>
     <%= link_to "June", "/records?utf8=✓&q=June&commit=Search", class: "btn btn-secondary" %>
-    <%= link_to 'July', "/records", class: "btn btn-primary" %>
+    <%= link_to 'July', "/records", class: "btn btn-info" %>
   <% end %>
 </div><br><br>
 <div class="btn-group" role="group" aria-label="Basic example">
   <% if @button == "ShowShared" %>
     <%= link_to 'All', "/records", class: "btn btn-secondary" %>
-    <%= link_to 'Shared', "/records?utf8=✓&q=ShowShared&commit=Search", class: "btn btn-primary" %>
+    <%= link_to 'Shared', "/records?utf8=✓&q=ShowShared&commit=Search", class: "btn btn-info" %>
     <%= link_to 'Seb Alone', "/records?utf8=✓&q=ShowSebAlone&commit=Search", class: "btn btn-secondary" %>
     <%= link_to 'Yuki Alone', "/records?utf8=✓&q=ShowYukiAlone&commit=Search", class: "btn btn-secondary" %>
   <% elsif @button == "ShowSebAlone" %>
     <%= link_to 'All', "/records", class: "btn btn-secondary" %>
     <%= link_to 'Shared', "/records?utf8=✓&q=ShowShared&commit=Search", class: "btn btn-secondary" %>
-    <%= link_to 'Seb Alone', "/records?utf8=✓&q=ShowSebAlone&commit=Search", class: "btn btn-primary" %>
+    <%= link_to 'Seb Alone', "/records?utf8=✓&q=ShowSebAlone&commit=Search", class: "btn btn-info" %>
     <%= link_to 'Yuki Alone', "/records?utf8=✓&q=ShowYukiAlone&commit=Search", class: "btn btn-secondary" %>
   <% elsif @button == "ShowYukiAlone" %>
     <%= link_to 'All', "/records", class: "btn btn-secondary" %>
     <%= link_to 'Shared', "/records?utf8=✓&q=ShowShared&commit=Search", class: "btn btn-secondary" %>
     <%= link_to 'Seb Alone', "/records?utf8=✓&q=ShowSebAlone&commit=Search", class: "btn btn-secondary" %>
-    <%= link_to 'Yuki Alone', "/records?utf8=✓&q=ShowYukiAlone&commit=Search", class: "btn btn-primary" %>
+    <%= link_to 'Yuki Alone', "/records?utf8=✓&q=ShowYukiAlone&commit=Search", class: "btn btn-info" %>
   <% else %>
-    <%= link_to 'All', "/records", class: "btn btn-primary" %>
+    <%= link_to 'All', "/records", class: "btn btn-info" %>
     <%= link_to 'Shared', "/records?utf8=✓&q=ShowShared&commit=Search", class: "btn btn-secondary" %>
     <%= link_to 'Seb Alone', "/records?utf8=✓&q=ShowSebAlone&commit=Search", class: "btn btn-secondary" %>
     <%= link_to 'Yuki Alone', "/records?utf8=✓&q=ShowYukiAlone&commit=Search", class: "btn btn-secondary" %>
   <% end %>
 </div>
+
+<br>
+<br>
+<%= link_to 'New Record', new_record_path, class:" btn btn-primary button-style button-size" %>
+
+<br>
 <table class="table">
   <thead>
     <tr>
@@ -66,10 +72,6 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Record', new_record_path, class:" btn btn-primary button-style button-size" %>
 
 <br> <br>
 
