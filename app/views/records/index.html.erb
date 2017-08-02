@@ -11,10 +11,16 @@
 <div class="btn-group" role="group" aria-label="Basic example">
   <% if @month == "June" %>
     <%= link_to 'June', "/records?utf8=✓&q=June&commit=Search", class: "btn btn-info" %>
-    <%= link_to 'July', "/records", class: "btn btn-secondary" %>
+    <%= link_to 'July', "/records?utf8=✓&q=July&commit=Search", class: "btn btn-secondary" %>
+    <%= link_to 'August', "/records", class: "btn btn-secondary" %>
+  <% elsif @month == "July" %>
+    <%= link_to "June", "/records?utf8=✓&q=June&commit=Search", class: "btn btn-secondary" %>
+    <%= link_to 'July', "/records?utf8=✓&q=July&commit=Search", class: "btn btn-info" %>
+    <%= link_to 'August', "/records", class: "btn btn-secondary" %>
   <% else %>
     <%= link_to "June", "/records?utf8=✓&q=June&commit=Search", class: "btn btn-secondary" %>
-    <%= link_to 'July', "/records", class: "btn btn-info" %>
+    <%= link_to 'July', "/records?utf8=✓&q=July&commit=Search", class: "btn btn-secondary" %>
+    <%= link_to 'August', "/records", class: "btn btn-info" %>
   <% end %>
 </div><br><br>
 <div class="btn-group" role="group" aria-label="Basic example">

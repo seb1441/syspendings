@@ -11,6 +11,9 @@ class RecordsController < ApplicationController
       if search_term == "June"
         @month = "June"
         current_month = 06
+      elsif search_term == "July"
+        @month = "July"
+        current_month = 07
       end
     end
     if Rails.env == "production"
