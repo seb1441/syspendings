@@ -35,14 +35,20 @@
   <div class="form-group row">
     <%= form.label :description , for: :record_description, class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= form.text_field :description, id: :record_description, class: "form-control" %>
+      <%= form.text_field :description, id: :record_description, class: "form-control", list: "descriptions" %>
+      <datalist id="descriptions">
+        <option value="Tim Hortons">
+        <option value="IGA">
+        <option value="Yuki needs to pay Seb from last Month">
+        <option value="Yuki's Phone">
+      </datalist>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :price, for: :record_price, class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= form.text_field :price, id: :record_price, class: "form-control" %>
+      <%= form.number_field :price, id: :record_price, class: "form-control", step: '0.01', id: "test1111", min: 0.01 %>
     </div>
   </div>
 
@@ -53,7 +59,5 @@
     </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit(class: "btn btn-primary button-style button-size") %>
-  </div>
+  <%= form.submit(class: "btn btn-primary button-style button-size") %>
 <% end %>

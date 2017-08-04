@@ -16,3 +16,9 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+
+$(document).on('turbolinks:load', function() {
+  $("#test1111").change(function() {
+    $(this).val(parseFloat($(this).val()).toFixed(2));
+  });
+});
