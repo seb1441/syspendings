@@ -36,7 +36,7 @@ class RecordsController < ApplicationController
     @current_month = Time.now.strftime("%m")
     @current_year = Time.now.strftime("%Y")
     if params[:month]
-      @current_month = @months.index(params[:month])
+      @current_month = @months.index(params[:month]) + 1
     end
     if params[:year]
       @current_year = params[:year]
