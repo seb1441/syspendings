@@ -4,22 +4,51 @@ class RecordsController < ApplicationController
   # GET /records
   # GET /records.json
   def index
-    test3 = Record
-    current_month = Time.now.strftime("%m")
-    if params[:q]
-      search_term = params[:q]
-      if search_term == "June"
-        @month = "June"
-        current_month = 06
-      elsif search_term == "July"
-        @month = "July"
-        current_month = 07
-      end
+    @months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ]
+    @years = [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+    ]
+    @current_month = Time.now.strftime("%m")
+    @current_year = Time.now.strftime("%Y")
+    if params[:month]
+      @current_month = @months.index(params[:month])
     end
+    if params[:year]
+      @current_year = params[:year]
+    end
+    test3 = Record
+
     if Rails.env == "production"
-      test3 = test3.where("extract(month from date) = ?", current_month)
+      test3 = test3.where("extract(month from date) = ?", @current_month)
+      test3 = test3.where("extract(year from date) = ?", @current_year)
     else
-      test3 = test3.where("cast(strftime('%m', date) as int) = ?", current_month)
+      test3 = test3.where("cast(strftime('%m', date) as int) = ?", @current_month)
+      test3 = test3.where("cast(strftime('%Y', date) as int) = ?", @current_year)
     end
     @yuki_sum_split =      test3.where(:who => "Yuki" ).where(:split => "Split").sum(:price)
     @yuki_sum_non_split =  test3.where(:who => "Yuki" ).where(:split => "Non-Split").sum(:price)
@@ -38,7 +67,7 @@ class RecordsController < ApplicationController
         elsif search_term == "ShowYukiAlone"
           test3 = test3.where("who ilike ?", "%Yuki%").where("split ilike ?", "%Alone%")
         else
-          if current_month == Time.now.strftime("%m")
+          if @current_month == Time.now.strftime("%m").to_i
             test3 = test3.where("description ilike ?", "%#{search_term}%")
           end
         end
@@ -50,7 +79,7 @@ class RecordsController < ApplicationController
         elsif search_term == "ShowYukiAlone"
           test3 = test3.where("who LIKE ?", "%Yuki%").where("split LIKE ?", "%Alone%")
         else
-          if current_month == Time.now.strftime("%m")
+          if @current_month == Time.now.strftime("%m").to_i
             test3 = test3.where("description LIKE ?", "%#{search_term}%")
           end
         end

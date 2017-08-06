@@ -21,4 +21,18 @@ $(document).on('turbolinks:load', function() {
   $("#test1111").change(function() {
     $(this).val(parseFloat($(this).val()).toFixed(2));
   });
+
+  $("#monthDropdown .dropdown-item").click(function() {
+    // $("#monthDropdownButton").html($(this).html());
+    // alert($(this).attr("index"));
+    var month = $(this).html().trim();
+    var year = $("#yearDropdownButton").html().trim();
+    window.location.href = "/?month=" + month + "&year=" + year;
+  });
+
+  $("#yearDropdown .dropdown-item").click(function() {
+    var month = $("#monthDropdownButton").html().trim();
+    var year = $(this).html().trim();
+    window.location.href = "/?month=" + month + "&year=" + year;
+  });
 });

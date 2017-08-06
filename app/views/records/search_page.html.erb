@@ -3,37 +3,28 @@
 <h1>Records</h1>
 <br>
 
-<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-  <div class="btn-group" role="group">
-    <button id="monthDropdownButton" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <%= @months[@current_month.to_i - 1] %>
-    </button>
-    <div class="dropdown-menu" id="monthDropdown" aria-labelledby="monthDropdownButton">
-      <% @months.each do | month | %>
-        <div class="dropdown-item"> <%= month %></div>
-      <% end %>
-    </div>
-  </div>
-  <div class="btn-group" role="group">
-    <button id="yearDropdownButton" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <%= @current_year %>
-    </button>
-    <div class="dropdown-menu" id="yearDropdown" aria-labelledby="yearDropDownButton">
-      <% @years.each do | year | %>
-        <div class="dropdown-item"> <%= year %></div>
-      <% end %>
-    </div>
-  </div>
-</div>
+<h1>T<%= @test1123 %>T</h1>
 
-<%#= form_tag("/records", method: "get", class: "form-inline my-2 my-lg-0") do %>
-  <%#= text_field_tag(:q, "", class: "form-control mr-sm-2") %>
-  <%#= hidden_field_tag(:month, @current_month.to_i) %>
-  <%#= hidden_field_tag(:year, @current_year) %>
-  <%#= submit_tag("Search", class: "btn btn-outline-primary my-2 my-sm-0") %>
-<%# end %>
-<%#= link_to "Search", root_path(month: @current_month, year: @current_year q: ""), method: :post, class: "btn btn-success" %>
+<%= form_tag("/records", method: "get", class: "form-inline my-2 my-lg-0") do %>
+  <%= text_field_tag(:q, "", class: "form-control mr-sm-2") %>
+  <%= submit_tag("Search", class: "btn btn-outline-primary my-2 my-sm-0") %>
+<% end %>
 <br>
+<div class="btn-group" role="group" aria-label="Basic example">
+  <% if @month == "June" %>
+    <%= link_to 'June', "/records?utf8=✓&q=June&commit=Search", class: "btn btn-info" %>
+    <%= link_to 'July', "/records?utf8=✓&q=July&commit=Search", class: "btn btn-secondary" %>
+    <%= link_to 'August', "/records", class: "btn btn-secondary" %>
+  <% elsif @month == "July" %>
+    <%= link_to "June", "/records?utf8=✓&q=June&commit=Search", class: "btn btn-secondary" %>
+    <%= link_to 'July', "/records?utf8=✓&q=July&commit=Search", class: "btn btn-info" %>
+    <%= link_to 'August', "/records", class: "btn btn-secondary" %>
+  <% else %>
+    <%= link_to "June", "/records?utf8=✓&q=June&commit=Search", class: "btn btn-secondary" %>
+    <%= link_to 'July', "/records?utf8=✓&q=July&commit=Search", class: "btn btn-secondary" %>
+    <%= link_to 'August', "/records", class: "btn btn-info" %>
+  <% end %>
+</div><br><br>
 <div class="btn-group" role="group" aria-label="Basic example">
   <% if @button == "ShowShared" %>
     <%= link_to 'All', "/records", class: "btn btn-secondary" %>
