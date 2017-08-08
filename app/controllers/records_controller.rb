@@ -1,6 +1,6 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: [:show, :edit, :update, :destroy]
-
+  before_action :check_rights, except: [:index, :new, :create ]
   # GET /records
   # GET /records.json
   def index
@@ -90,8 +90,8 @@ class RecordsController < ApplicationController
 
   # GET /records/1
   # GET /records/1.json
-  # def show
-  # end
+  def show
+  end
 
   # GET /records/new
   def new
@@ -99,8 +99,8 @@ class RecordsController < ApplicationController
   end
 
   # GET /records/1/edit
-  # def edit
-  # end
+  def edit
+  end
 
   # POST /records
   # POST /records.json
@@ -120,29 +120,36 @@ class RecordsController < ApplicationController
 
   # PATCH/PUT /records/1
   # PATCH/PUT /records/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @record.update(record_params)
-  #       format.html { redirect_to action: "index", notice: 'Record was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @record }
-  #     else
-  #       format.html { render :edit }
-  #       format.json { render json: @record.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def update
+    respond_to do |format|
+      if @record.update(record_params)
+        format.html { redirect_to action: "index", notice: 'Record was successfully updated.' }
+        format.json { render :show, status: :ok, location: @record }
+      else
+        format.html { render :edit }
+        format.json { render json: @record.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # DELETE /records/1
   # DELETE /records/1.json
-  # def destroy
-  #   @record.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to records_url, notice: 'Record was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
+  def destroy
+    @record.destroy
+    respond_to do |format|
+      format.html { redirect_to records_url, notice: 'Record was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
 
   private
+    def check_rights
+      if current_user
+        unless current_user.email == "sebastienauriault@gmail.com"
+          redirect_to root_path
+        end
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_record
       @record = Record.find(params[:id])

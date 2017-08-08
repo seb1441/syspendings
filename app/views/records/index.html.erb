@@ -76,14 +76,17 @@
 
   <tbody>
     <% @records.each do |record| %>
-      <tr id="<%= record.id %>">
+      <tr>
         <td><%= record.date %></td>
         <td><%= record.who %></td>
         <td><%= record.description %></td>
         <td><%= record.split %></td>
         <td><%= '%.2f' % record.price %>$</td>
-        <!-- <td><%#= link_to 'Edit', edit_record_path(record), class: "btn btn-secondary button-style btn-sm"  %> <%#= link_to 'Delete', record, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger button-style btn-sm"  %></td> -->
-        <td></td>
+        <% if current_user %>
+          <% if current_user.email == "sebastienauriault@gmail.com" %>
+            <td><%= link_to 'Edit', edit_record_path(record), class: "btn btn-secondary button-style btn-sm"  %> <%= link_to 'Delete', record, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger button-style btn-sm"  %></td>
+          <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
