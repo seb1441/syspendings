@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Records</h1>
 <br>
-
+<%= link_to('Déconnecter', destroy_user_session_path, method: "delete", class: "btn btn-primary button-style button-size") %>
 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
   <div class="btn-group" role="group">
     <button id="monthDropdownButton" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -60,7 +58,7 @@
 
 <br>
 <br>
-<%= link_to 'New Record', new_record_path, class:" btn btn-primary button-style button-size" %>
+<%= link_to 'New Record', new_record_path, class:"btn btn-primary button-style button-size" %>
 
 <br>
 <table class="table">
@@ -69,7 +67,7 @@
       <th>Date</th>
       <th>Who</th>
       <th>Description</th>
-      <th>Split</th>
+      <th>For</th>
       <th>Price</th>
       <th colspan="3"></th>
     </tr>
@@ -99,23 +97,23 @@
   <div class="card-block">
     <h4 class="card-title">Seb</h4>
     <p class="card-text">
-      Alone: <%= @seb_sum %>$<br>
-      Split: <%= @seb_sum_split %>$<br>
-      Non Split: <%= @seb_sum_non_split %>$<br>
-      Total Spent: <%= @seb_sum + (@seb_sum_split / 2) + @yuki_sum_non_split%>
+      For myself: <%= @seb_sum_myself %>$<br>
+      For both: <%= @seb_sum_both %>$<br>
+      For Yuki: <%= @seb_sum_yuki %>$<br>
+      Total Spent: <%= @seb_sum_myself + (@seb_sum_both / 2) + @yuki_sum_seb%>
     </p>
     <hr>
     <h4 class="card-title">Yuki</h4>
     <p class="card-text">
-      Alone: <%= @yuki_sum %>$<br>
-      Split: <%= @yuki_sum_split %>$<br>
-      Non Split: <%= @yuki_sum_non_split %>$<br>
-      Total Spent: <%= @yuki_sum + (@yuki_sum_split / 2) + @seb_sum_non_split%>
+      For myself: <%= @yuki_sum_myself %>$<br>
+      For both: <%= @yuki_sum_both %>$<br>
+      For Seb: <%= @yuki_sum_seb %>$<br>
+      Total Spent: <%= @yuki_sum_myself + (@yuki_sum_both / 2) + @seb_sum_yuki%>
     </p>
     <hr>
     <p class="card-text">
-      <% sebOwe = (@yuki_sum_split / 2) + @yuki_sum_non_split %>
-      <% yukiOwe = (@seb_sum_split / 2) + @seb_sum_non_split %>
+      <% sebOwe = (@yuki_sum_both / 2) + @yuki_sum_seb %>
+      <% yukiOwe = (@seb_sum_both / 2) + @seb_sum_yuki %>
       <strong>
         Seb owes Yuki : <%= '%.2f' % sebOwe %>$<br>
         Yuki owes Seb : <%= '%.2f' % yukiOwe %>$ <br><br>

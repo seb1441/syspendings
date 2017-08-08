@@ -50,12 +50,12 @@ class RecordsController < ApplicationController
       test3 = test3.where("cast(strftime('%m', date) as int) = ?", @current_month)
       test3 = test3.where("cast(strftime('%Y', date) as int) = ?", @current_year)
     end
-    @yuki_sum_split =      test3.where(:who => "Yuki" ).where(:split => "Split").sum(:price)
-    @yuki_sum_non_split =  test3.where(:who => "Yuki" ).where(:split => "Non-Split").sum(:price)
-    @seb_sum_split =       test3.where(:who => "Seb" ).where(:split => "Split").sum(:price)
-    @seb_sum_non_split =   test3.where(:who => "Seb" ).where(:split => "Non-Split").sum(:price)
-    @seb_sum =             test3.where(:who => "Seb" ).where(:split => "Alone").sum(:price)
-    @yuki_sum =            test3.where(:who => "Yuki" ).where(:split => "Alone").sum(:price)
+    @yuki_sum_both =     test3.where(:who => "Yuki" ).where(:split => "Both").sum(:price)
+    @yuki_sum_seb =   test3.where(:who => "Yuki" ).where(:split => "Seb").sum(:price)
+    @seb_sum_both =      test3.where(:who => "Seb" ).where(:split => "Both").sum(:price)
+    @seb_sum_yuki =   test3.where(:who => "Seb" ).where(:split => "Yuki").sum(:price)
+    @seb_sum_myself =    test3.where(:who => "Seb" ).where(:split => "Myself").sum(:price)
+    @yuki_sum_myself =   test3.where(:who => "Yuki" ).where(:split => "Myself").sum(:price)
     if params[:q]
       search_term = params[:q]
       @button = search_term

@@ -25,12 +25,7 @@
     </div>
   </div>
 
-  <div class="form-group row">
-    <%= form.label :who, for: :record_who, class: "col-2 col-form-label" %>
-    <div class="col-10">
-      <%= form.select :who, options_for_select(["Yuki","Seb"],:selected => form.object.who), {}, id: :record_who, class: "form-control" %>
-    </div>
-  </div>
+  <%= form.hidden_field :who, value: current_user.username %>
 
   <div class="form-group row">
     <%= form.label :description , for: :record_description, class: "col-2 col-form-label" %>
@@ -53,9 +48,13 @@
   </div>
 
   <div class="form-group row">
-    <%= form.label 'How', for: :record_split, class: "col-2 col-form-label" %>
+    <%= form.label 'For', for: :record_split, class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= form.select :split, options_for_select(["Split","Non-Split", "Alone"],:selected => form.object.split), {}, id: :record_split, class: "form-control" %>
+      <% if current_user.username == "Seb" %>
+        <%= form.select :split, options_for_select(["Myself","Both", "Yuki"],:selected => form.object.split), {}, id: :record_split, class: "form-control" %>
+      <% elsif current_user.username == "Yuki" %>
+        <%= form.select :split, options_for_select(["Myself","Both", "Seb"],:selected => form.object.split), {}, id: :record_split, class: "form-control" %>
+      <% end %>
     </div>
   </div>
 
