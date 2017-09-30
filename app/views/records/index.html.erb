@@ -104,7 +104,7 @@
       For myself: <%= @seb_sum_myself %>$<br>
       For both: <%= @seb_sum_both %>$<br>
       For Yuki: <%= @seb_sum_yuki %>$<br>
-      Total Spent: <%= @seb_sum_myself + (@seb_sum_both / 2) + @yuki_sum_seb%>
+      Total Spent: <%= @seb_sum_myself + (@seb_sum_both / 2) + @yuki_sum_seb + (@yuki_sum_both / 2)%>
     </p>
     <hr>
     <h4 class="card-title">Yuki</h4>
@@ -112,7 +112,7 @@
       For myself: <%= @yuki_sum_myself %>$<br>
       For both: <%= @yuki_sum_both %>$<br>
       For Seb: <%= @yuki_sum_seb %>$<br>
-      Total Spent: <%= @yuki_sum_myself + (@yuki_sum_both / 2) + @seb_sum_yuki%>
+      Total Spent: <%= @yuki_sum_myself + (@yuki_sum_both / 2) + @seb_sum_yuki + (@seb_sum_both / 2)%>
     </p>
     <hr>
     <p class="card-text">
